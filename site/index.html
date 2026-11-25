@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#142338">
+<title>Magazzino tradizionale · Logistica Lab</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<svg class="defs" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><defs>
+<symbol id="i-box" viewBox="0 0 24 24"><path d="m3 7 9-5 9 5v10l-9 5-9-5zM3 7l9 5 9-5M12 12v10M7.5 4.5l9 5v5l-4.5 2.5"/></symbol>
+<symbol id="i-data" viewBox="0 0 24 24"><path d="M4 5.5c3-1 5-1 8 1 3-2 5-2 8-1v13c-3-1-5-1-8 1-3-2-5-2-8-1zM12 6.5v13"/></symbol>
+<symbol id="i-route" viewBox="0 0 24 24"><circle cx="5" cy="6" r="2"/><circle cx="19" cy="18" r="2"/><path d="M7 6h8a3 3 0 0 1 0 6H9a3 3 0 0 0 0 6h8"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7v5l3 2"/></symbol>
+<symbol id="i-truck" viewBox="0 0 24 24"><circle cx="6" cy="18" r="2"/><circle cx="15" cy="18" r="2"/><path d="M3 16v-5h5V5h5l3 8v3M9 11h6M18 4v13h4M8 16h5"/></symbol>
+<symbol id="i-gauge" viewBox="0 0 24 24"><path d="M4.5 18a9 9 0 1 1 15 0zM12 14l5-6M6.5 12h1M12 6v1"/><circle cx="12" cy="14" r="1"/></symbol>
+<symbol id="i-config" viewBox="0 0 24 24"><path d="M3 6h7m4 0h7M3 12h12m4 0h2M3 18h3m4 0h11"/><circle cx="12" cy="6" r="2"/><circle cx="17" cy="12" r="2"/><circle cx="8" cy="18" r="2"/></symbol>
+<symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2"/><path d="M12 2v3m0 14v3M2 12h3m14 0h3"/></symbol>
+<symbol id="i-play" viewBox="0 0 24 24"><path d="m7 4 13 8-13 8z"/></symbol>
+<symbol id="i-pause" viewBox="0 0 24 24"><path d="M8 5v14M16 5v14" stroke-width="3.5"/></symbol>
+<symbol id="i-reset" viewBox="0 0 24 24"><path d="M4 5v5h5M4.5 10a8 8 0 1 1 1 7"/></symbol>
+<symbol id="i-bulb" viewBox="0 0 24 24"><path d="M9 17c0-3-3.5-3.5-3.5-8a6.5 6.5 0 0 1 13 0c0 4.5-3.5 5-3.5 8zM9.5 20h5"/></symbol>
+<symbol id="i-plan" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 6v10m5-10v10m5-10v10"/></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14m-7-7v14"/></symbol>
+<symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+<symbol id="i-fit" viewBox="0 0 24 24"><path d="M4 9V4h5m6 0h5v5m0 6v5h-5m-6 0H4v-5"/></symbol>
+<symbol id="i-expand" viewBox="0 0 24 24"><path d="M14 4h6v6m0-6-7 7M10 20H4v-6m0 6 7-7"/></symbol>
+<symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 3v17h17M7 7l4 6 4-2 5 3"/></symbol>
+<symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+</defs></svg>
+<header class="top"><div class="shell nav"><div class="brand"><div class="brand-lock"><span class="logo"><svg class="icon"><use href="#i-box"/></svg></span>Logistica Lab</div><span class="subject">Logistica industriale</span></div><div class="top-actions"><span class="exercise">Esercitazione 04</span><button id="dataBtn" class="btn top-btn"><svg class="icon"><use href="#i-data"/></svg>Dati di progetto</button></div></div></header>
+<main class="shell">
+<div class="hero"><div><h1>Magazzino tradizionale</h1><p>Dimensionamento e simulazione in pianta con carrelli trilaterali.</p></div><div class="running"><span id="status" class="status">In esecuzione</span><span class="time" title="Tempo simulato"><svg class="icon"><use href="#i-clock"/></svg><span id="clock" aria-label="Tempo simulato">00:00:00</span></span></div></div>
+<section class="kpis" aria-label="Indicatori di prestazione">
+<article class="metric"><div class="metric-label"><span class="metric-icon"><svg class="icon"><use href="#i-route"/></svg></span>Percorso medio</div><div class="value"><span id="kR"></span> <small>m</small></div><p class="metric-note" id="rNote"></p></article>
+<article class="metric"><div class="metric-label"><span class="metric-icon violet"><svg class="icon"><use href="#i-clock"/></svg></span>Tempo ciclo</div><div class="value"><span id="kD"></span> <small>s</small></div><p class="metric-note">Immissione e prelievo per pallet</p></article>
+<article class="metric"><div class="metric-label"><span class="metric-icon teal"><svg class="icon"><use href="#i-truck"/></svg></span>Flotta necessaria</div><div class="value"><span id="kZ"></span> <small>carrelli</small></div><p class="metric-note">Fabbisogno teorico <b id="kF"></b></p></article>
+<article class="metric" id="satCard"><div class="metric-label"><span class="metric-icon sand"><svg class="icon"><use href="#i-gauge"/></svg></span>Saturazione flotta</div><div class="value"><span id="kS"></span> <small>%</small></div><div class="metric-note sat-foot" id="satFoot"><span id="satText"></span><div class="mini-meter"><span id="satFill"></span></div></div></article>
+</section>
+<div class="layout">
+<aside class="sidebar"><div class="card controls">
+<section><div class="section-title"><svg class="icon"><use href="#i-config"/></svg><h2>Configurazione</h2></div>
+<div class="row"><label class="field" for="nInput">Numero di corridoi</label><output id="nValue" for="nInput" class="num-chip">17</output></div>
+<div class="slider-row"><button class="square" id="nDown" aria-label="Riduci i corridoi">−</button><div class="slider-pack"><input id="nInput" type="range" min="1" max="25" value="17"><div class="range-ends" aria-hidden="true"><span>1</span><span>25</span></div></div><button class="square" id="nUp" aria-label="Aumenta i corridoi">+</button></div>
+<button class="btn optimal" id="opt" title="Seleziona il minimo equiprobabile, 17 corridoi"><svg class="icon"><use href="#i-target"/></svg>Imposta ottimo (n = 17)</button>
+<div class="field-label" id="policyLabel">Politica di allocazione</div><div role="radiogroup" aria-labelledby="policyLabel"><label class="choice"><input type="radio" name="policy" value="random" checked><span>Equiprobabile</span><small>Punto 1</small></label><label class="choice"><input type="radio" name="policy" value="abc"><span>Classi di rotazione ABC</span><small>Punto 2</small></label></div>
+</section>
+<section><div class="section-title"><svg class="icon"><use href="#i-play"/></svg><h2>Simulazione</h2></div><div class="play-row"><button id="play" class="btn play"><svg class="icon"><use id="playIcon" href="#i-pause"/></svg><span id="playText">Pausa</span></button><button id="reset" class="icon-btn reset" title="Riparti da I/O a tempo zero" aria-label="Riparti da I/O a tempo zero"><svg class="icon"><use href="#i-reset"/></svg></button></div>
+<div class="row speed-line"><span class="field">Velocità</span><div class="segmented" role="group" aria-label="Velocità di simulazione"><button data-speed="1" aria-pressed="true">1×</button><button data-speed="5" aria-pressed="false">5×</button><button data-speed="20" aria-pressed="false">20×</button></div></div>
+<label class="switch">Scie dei carrelli<input id="showTrail" type="checkbox" checked></label><label class="switch">Baricentri e quote<input id="showB" type="checkbox" checked></label></section>
+</div><section class="teaching"><div class="section-title"><svg class="icon"><use href="#i-bulb"/></svg><h2>Lettura del layout</h2></div><p id="lesson"></p></section></aside>
+<div class="maincol"><section class="card plan" id="planCard" aria-label="Visualizzazione del magazzino"><div class="card-head"><div class="card-title"><svg class="icon"><use href="#i-plan"/></svg><h2>Pianta del magazzino</h2></div><div class="plan-tools"><button id="zoomOut" class="icon-btn" aria-label="Riduci zoom" title="Riduci zoom"><svg class="icon"><use href="#i-minus"/></svg></button><span class="zoom" id="zoomValue">100%</span><button id="zoomIn" class="icon-btn" aria-label="Aumenta zoom" title="Aumenta zoom"><svg class="icon"><use href="#i-plus"/></svg></button><button id="fit" class="icon-btn" aria-label="Adatta la pianta" title="Adatta la pianta"><svg class="icon"><use href="#i-fit"/></svg></button><button id="expand" class="icon-btn" aria-label="Espandi la pianta" title="Espandi la pianta" aria-pressed="false"><svg class="icon"><use href="#i-expand"/></svg></button></div></div>
+<div class="plan-stage" id="planStage"><canvas id="planBase" aria-hidden="true"></canvas><canvas id="motion" role="img" aria-label="Pianta del magazzino" tabindex="0"></canvas><span class="map-tag" id="mapTag"></span><div id="mapTip" class="tooltip" hidden></div></div><div class="legend" id="mapLegend" aria-label="Legenda della pianta"></div>
+<dl class="geom-strip"><div><dt>Campate per fronte</dt><dd id="gM"></dd></div><div><dt>Posti pallet</dt><dd id="gC"></dd></div><div><dt>Dimensioni u × v</dt><dd><span id="gUV"></span> <small>m</small></dd></div><div><dt>Superficie</dt><dd><span id="gArea"></span> <small>m²</small></dd></div></dl></section>
+<div class="lower"><section class="card chart-card"><div class="card-head"><div class="card-title"><svg class="icon"><use href="#i-chart"/></svg><h2>Ottimizzazione della flotta</h2></div><button class="chart-opt" aria-pressed="false" id="detailChart" title="Ingrandisci l’intervallo da 10 a 25 corridoi">Dettaglio 10–25</button></div><div class="chart-stage" id="chartStage"><canvas id="chart" role="slider" aria-label="Numero di corridoi sul grafico di ottimizzazione" aria-valuemin="1" aria-valuemax="25" aria-valuenow="17" tabindex="0"></canvas><div id="chartTip" class="tooltip" hidden></div></div><div class="plot-foot"><div class="legend"><span class="leg"><i class="line-key"></i>Frazionari</span><span class="leg"><i class="step-key"></i>Flotta intera</span></div><span id="chartMin"></span></div></section>
+<section class="card cycle-card"><div class="card-head"><div class="card-title"><svg class="icon"><use href="#i-clock"/></svg><h2>Composizione del ciclo</h2></div></div><div class="cycle-inner"><div class="cycle-total"><span id="cycleTotal"></span> <small>s/pallet</small></div><div class="cycle-meter" aria-hidden="true"><span id="tBar" class="cycle-travel"></span><span id="vBar" class="cycle-vertical"></span><span id="fBar" class="cycle-fixed"></span></div>
+<div class="cycle-row"><span class="leg"><i class="swatch swatch-travel"></i>Traslazione</span><strong id="tVal"></strong></div><div class="cycle-row"><span class="leg"><i class="swatch swatch-vertical"></i>Verticale</span><strong id="vVal"></strong></div><div class="cycle-row"><span class="leg"><i class="swatch swatch-fixed"></i>Operazioni fisse</span><strong id="fVal"></strong></div></div></section></div>
+<section class="card abc-card" id="abcCard" hidden><div class="card-head"><div class="card-title"><svg class="icon"><use href="#i-box"/></svg><h2>Ripartizione per classe</h2></div></div><div class="abc-body"><table><caption class="sr">Posti assegnati, flussi, baricentri e fabbisogno per classe</caption><thead><tr><th>Classe</th><th>Posti</th><th>Flusso</th><th>ȳ (m)</th><th>r (m)</th><th>d (s)</th><th>Carrelli</th></tr></thead><tbody id="classRows"></tbody></table><p id="extraText"></p><p id="mixedText"></p></div></section>
+</div></div>
+<footer class="footer"><span>Logistica industriale · Esercitazione 04</span><span>Modello di riferimento · main.tex</span></footer>
+</main>
+<dialog id="project"><div class="card-head"><div class="card-title"><svg class="icon"><use href="#i-data"/></svg><h2>Dati di progetto</h2></div><button id="closeData" class="icon-btn" aria-label="Chiudi dati di progetto"><svg class="icon"><use href="#i-close"/></svg></button></div><div class="model">
+<h3>Unità di carico e ricettività</h3><p>Pallet Euro 1 da 0,80 × 1,20 × 1,40 m, con franchi di 0,10 m. Il vano misura 1,00 × 1,30 × 1,60 m. La presa massima è 9,25 m e il primo livello è a terra.</p><div class="formula">J = ⌊9,25 / 1,60⌋ + 1 = 6 livelli<br>R nominale = 8.462 · R maggiorata (+20%) = 10.155<br>N colonne = ⌈10.155 / 6⌉ = 1.693</div>
+<h3>Geometria in pianta</h3><p>La testata A misura 6,00 m, il corridoio a misura 2,50 m e il bifronte è profondo 2,60 m. L’origine è al centro della testata. L’asse I–I divide la pianta in due metà. La coordinata x̄ = u/4 è la distanza trasversale media in valore assoluto.</p><div class="formula">m = ⌈1.693 / (2n)⌉ · C = 2nmJ<br>u = 5,10n · v = 6,00 + m · S = uv</div>
+<h3>Flussi e classi di rotazione</h3><div class="model-scroll"><table><thead><tr><th>Classe</th><th>Pallet/giorno</th><th>Pallet/anno</th><th>IR</th><th>Posti base</th></tr></thead><tbody><tr><td>Alta · AR</td><td>548</td><td>197.280</td><td>90</td><td>3.034</td></tr><tr><td>Media · MR</td><td>185</td><td>66.600</td><td>30</td><td>3.071</td></tr><tr><td>Bassa · BR</td><td>90</td><td>32.400</td><td>8</td><td>4.050</td></tr></tbody></table></div><p>Totale di 823 pallet/giorno su 360 giorni. I posti aggiuntivi vanno ad AR e MR in proporzione a 2.192 e 2.220, con arrotondamento a posti interi. La zona BR conserva 4.050 posti.</p>
+<h3>Percorsi e fabbisogno</h3><p>Ogni pallet richiede due missioni I/O–vano–I/O, una di immissione e una di prelievo. La pianta anima ogni missione lungo l’asse del corridoio. Il modello usa la distanza media trasversale continua u/4 anche con un numero dispari di corsie.</p><div class="formula">Equiprobabile · ȳ = 6 + m/2 · r = u + 4ȳ<br>ABC · yₖ = 6 + (k − 0,5) · ȳᵢ = Σ(Cᵢₖ yₖ) / Cᵢ<br>rᵢ = u + 4ȳᵢ · r medio = Σ(fᵢ rᵢ) / 296.280<br>d = r / 2,60 + 49,612 + 78,0<br>zᵢ = fᵢ dᵢ / (3.600 × 2.160) · z = ⌈z fraz⌉<br>Saturazione = 100 × z fraz / z</div><p>La traslazione avviene a 2,60 m/s. Salita e discesa avvengono a 0,3225 m/s, con 2(J − 1)h/vₛ = 49,612 s medi per pallet. Ogni missione assorbe 39 s fissi e il tempo verticale del livello estratto. Le ore utili per carrello sono 360 × 8 × 0,75 = 2.160 all’anno.</p>
+<h3>Accesso alle corsie</h3><p>Ogni corsia di stoccaggio accoglie un solo carrello alla volta, dalla svolta in ingresso fino al ritorno in testata. Gli altri mezzi diretti alla stessa corsia attendono in testata ed entrano in ordine di arrivo. Le attese incidono sui tempi dell’animazione. I KPI analitici seguono le formule di progetto di main.tex.</p>
+<h3>Come esplorare la pianta</h3><p>Passa su una scaffalatura per identificare corridoio, campata e posti per classe. Punta un carrello per leggere la sua missione. Lo zoom consente di trascinare la pianta, anche con i tasti freccia. La vista iniziale mostra la flotta avviata da un minuto. Il pulsante di riavvio riporta tutti i mezzi a I/O.</p></div></dialog>
+<script src="app.js"></script>
+</body></html>
